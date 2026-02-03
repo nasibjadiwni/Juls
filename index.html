@@ -69,7 +69,13 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            min-height: 200px;
+            min-height: 250px;
+        }
+
+        @media (min-width: 768px) {
+            .buttons {
+                min-height: 200px;
+            }
         }
 
         button {
@@ -310,13 +316,13 @@
             const isMobile = window.innerWidth < 768;
             
             if (isMobile) {
-                // Mobile: stack vertically (Yes on top, No on bottom)
+                // Mobile: stack vertically with more spacing (Yes on top, No on bottom)
                 yesBtn.style.left = '50%';
-                yesBtn.style.top = '30%';
+                yesBtn.style.top = '25%';
                 yesBtn.style.transform = 'translate(-50%, -50%)';
                 
                 const initialLeft = containerRect.left + (containerRect.width * 0.5);
-                const initialTop = buttonsArea.top + (buttonsArea.height * 0.70);
+                const initialTop = buttonsArea.top + (buttonsArea.height * 0.75);
                 
                 noBtn.style.left = initialLeft + 'px';
                 noBtn.style.top = initialTop + 'px';
