@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Be My Valentine? 💝</title>
+    <title>Will You Be My Gym Partner? 💪💕</title>
     <style>
         * {
             margin: 0;
@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #355c7d 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -99,26 +99,35 @@
         }
 
         #yesBtn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
             color: white;
             position: absolute;
         }
 
         #yesBtn:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.5);
         }
 
         #noBtn {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            color: #666;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            color: #333;
             position: fixed;
             transition: all 0.2s ease;
             z-index: 1000;
+            font-size: 0.9em;
+            padding: 10px 28px;
+        }
+
+        @media (min-width: 768px) {
+            #noBtn {
+                font-size: 1em;
+                padding: 12px 32px;
+            }
         }
 
         #noBtn:hover {
-            background: linear-gradient(135deg, #fed6e3 0%, #a8edea 100%);
+            background: linear-gradient(135deg, #fab1a0 0%, #ffeaa7 100%);
         }
 
         .success {
@@ -194,7 +203,7 @@
     
     <div class="container">
         <div id="question-section">
-            <h1>💝</h1>
+            <h1>💪💕</h1>
             <p class="question">Juls, will you be my Valentine?</p>
             <div class="gif-container">
                 <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3E3bXpkMjM1b212NnA2a2IzeTIyN3VyZDg1NW0zemE1aWhnYzUzdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute puppy">
@@ -253,11 +262,7 @@
             // Move the button
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
-            noBtn.style.transform = 'translate(0, 0)';
-            
-            // Make the button smaller and faster each time
-            const newSize = Math.max(0.5, 1 - (clickCount * 0.06));
-            noBtn.style.transform = `scale(${newSize})`;
+            noBtn.style.transform = 'translate(-50%, -50%)';
             
             // Speed up transition as user tries more
             const speed = Math.max(0.1, 0.2 - (clickCount * 0.01));
@@ -265,13 +270,13 @@
             
             // Change text to tease the user
             if (clickCount > 3) {
-                noBtn.textContent = '🏃‍♂️';
+                noBtn.textContent = '🏃‍♀️ Skip leg day?';
             }
             if (clickCount > 7) {
-                noBtn.textContent = '😏 Nope';
+                noBtn.textContent = '💪 No gains!';
             }
             if (clickCount > 12) {
-                noBtn.textContent = '😂';
+                noBtn.textContent = '😤 Too slow!';
             }
         }
 
@@ -285,13 +290,13 @@
 
         function createHearts() {
             const heartsContainer = document.getElementById('hearts');
-            const heartSymbols = ['💕', '💖', '💗', '💘', '💝', '❤️', '🌹'];
+            const gymSymbols = ['💪', '💕', '🏋️', '❤️', '💖', '🔥', '⚡'];
             
             for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.className = 'heart';
-                    heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.textContent = gymSymbols[Math.floor(Math.random() * gymSymbols.length)];
                     heart.style.left = Math.random() * 100 + '%';
                     heart.style.animationDelay = Math.random() * 2 + 's';
                     heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
