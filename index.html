@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Be My Valentine? 💝</title>
     <style>
         * {
@@ -24,25 +26,41 @@
         .container {
             text-align: center;
             background: white;
-            padding: 60px 40px;
+            padding: 40px 20px;
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             max-width: 500px;
             width: 90%;
         }
 
+        @media (min-width: 768px) {
+            .container {
+                padding: 60px 40px;
+            }
+        }
+
         h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             color: #e91e63;
             margin-bottom: 20px;
             animation: heartbeat 1.5s ease-in-out infinite;
         }
 
         .question {
-            font-size: 1.8em;
+            font-size: 1.4em;
             color: #333;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-weight: 600;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3em;
+            }
+            .question {
+                font-size: 1.8em;
+                margin-bottom: 40px;
+            }
         }
 
         .buttons {
@@ -63,6 +81,8 @@
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         #yesBtn {
@@ -167,7 +187,7 @@
             </div>
             <div class="buttons">
                 <button id="yesBtn" onclick="sayYes()">Yes! 💕</button>
-                <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+                <button id="noBtn">No</button>
             </div>
         </div>
 
@@ -184,6 +204,17 @@
         const noBtn = document.getElementById('noBtn');
         const container = document.querySelector('.container');
         let clickCount = 0;
+
+        // Add event listeners for both mouse and touch events
+        noBtn.addEventListener('mouseenter', moveButton);
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveButton();
+        });
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            moveButton();
+        });
 
         function moveButton() {
             clickCount++;
