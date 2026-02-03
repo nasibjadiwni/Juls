@@ -68,6 +68,7 @@
         #yesBtn {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
+            position: absolute;
         }
 
         #yesBtn:hover {
@@ -162,7 +163,7 @@
             <h1>💝</h1>
             <p class="question">Juls, will you be my Valentine?</p>
             <div class="gif-container">
-                <img src="https://media.giphy.com/media/CjmvTCZf2U3p09Cn0h/giphy.gif" alt="Cute puppy">
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3E3bXpkMjM1b212NnA2a2IzeTIyN3VyZDg1NW0zemE1aWhnYzUzdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute puppy">
             </div>
             <div class="buttons">
                 <button id="yesBtn" onclick="sayYes()">Yes! 💕</button>
@@ -252,9 +253,15 @@
             }
         }
 
-        // Initialize no button position
+        // Initialize button positions - Yes on left, No on right with spacing
+        const yesBtn = document.getElementById('yesBtn');
+        yesBtn.style.position = 'absolute';
+        yesBtn.style.left = '30%';
+        yesBtn.style.top = '50%';
+        yesBtn.style.transform = 'translate(-50%, -50%)';
+        
         noBtn.style.position = 'absolute';
-        noBtn.style.left = '60%';
+        noBtn.style.left = '70%';
         noBtn.style.top = '50%';
         noBtn.style.transform = 'translate(-50%, -50%)';
     </script>
