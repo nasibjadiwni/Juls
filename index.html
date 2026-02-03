@@ -73,8 +73,8 @@
         }
 
         button {
-            padding: 15px 40px;
-            font-size: 1.2em;
+            padding: 12px 30px;
+            font-size: 1.1em;
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -83,6 +83,13 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
+        }
+
+        @media (min-width: 768px) {
+            button {
+                padding: 15px 40px;
+                font-size: 1.2em;
+            }
         }
 
         #yesBtn {
@@ -292,9 +299,6 @@
         // Initialize button positions - both start in the container proportionally
         const yesBtn = document.getElementById('yesBtn');
         yesBtn.style.position = 'absolute';
-        yesBtn.style.left = '20%';
-        yesBtn.style.top = '50%';
-        yesBtn.style.transform = 'translate(-50%, -50%)';
         
         // Position No button proportionally to match Yes button size and spacing
         // Calculate position relative to container, then convert to viewport coordinates
@@ -302,9 +306,18 @@
             const containerRect = container.getBoundingClientRect();
             const buttonsArea = document.querySelector('.buttons').getBoundingClientRect();
             
-            // Position at 80% of container width, centered vertically in buttons area
-            const leftPercent = 0.80;
-            const initialLeft = containerRect.left + (containerRect.width * leftPercent);
+            // Different positioning for mobile vs desktop
+            const isMobile = window.innerWidth < 768;
+            const yesLeftPercent = isMobile ? 0.25 : 0.20;
+            const noLeftPercent = isMobile ? 0.75 : 0.80;
+            
+            // Position Yes button
+            yesBtn.style.left = yesLeftPercent * 100 + '%';
+            yesBtn.style.top = '50%';
+            yesBtn.style.transform = 'translate(-50%, -50%)';
+            
+            // Position No button using viewport coordinates so it can escape anywhere
+            const initialLeft = containerRect.left + (containerRect.width * noLeftPercent);
             const initialTop = buttonsArea.top + (buttonsArea.height / 2);
             
             noBtn.style.left = initialLeft + 'px';
