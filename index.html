@@ -292,7 +292,7 @@
         // Initialize button positions - both start in the container proportionally
         const yesBtn = document.getElementById('yesBtn');
         yesBtn.style.position = 'absolute';
-        yesBtn.style.left = '30%';
+        yesBtn.style.left = '20%';
         yesBtn.style.top = '50%';
         yesBtn.style.transform = 'translate(-50%, -50%)';
         
@@ -302,8 +302,8 @@
             const containerRect = container.getBoundingClientRect();
             const buttonsArea = document.querySelector('.buttons').getBoundingClientRect();
             
-            // Position at 70% of container width, centered vertically in buttons area
-            const leftPercent = 0.70;
+            // Position at 80% of container width, centered vertically in buttons area
+            const leftPercent = 0.80;
             const initialLeft = containerRect.left + (containerRect.width * leftPercent);
             const initialTop = buttonsArea.top + (buttonsArea.height / 2);
             
