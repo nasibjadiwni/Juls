@@ -268,16 +268,10 @@
             const speed = Math.max(0.1, 0.2 - (clickCount * 0.01));
             noBtn.style.transition = `all ${speed}s ease`;
             
-            // Change text to tease the user
-            if (clickCount > 3) {
-                noBtn.textContent = '🏃‍♀️ Skip leg day?';
-            }
-            if (clickCount > 7) {
-                noBtn.textContent = '💪 No gains!';
-            }
-            if (clickCount > 12) {
-                noBtn.textContent = '😤 Too slow!';
-            }
+            // Change text to tease the user - loop through messages
+            const messages = ['No', '🏃‍♀️ Skip leg day?', '💪 No gains!', '😤 Too slow!', '🔥 Nice try!', '😏 Nope!'];
+            const messageIndex = clickCount % messages.length;
+            noBtn.textContent = messages[messageIndex];
         }
 
         function sayYes() {
