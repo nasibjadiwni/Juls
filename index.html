@@ -99,8 +99,9 @@
         #noBtn {
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             color: #666;
-            position: absolute;
-            transition: all 0.15s ease;
+            position: fixed;
+            transition: all 0.2s ease;
+            z-index: 1000;
         }
 
         #noBtn:hover {
@@ -223,37 +224,41 @@
             const btnWidth = noBtn.offsetWidth;
             const btnHeight = noBtn.offsetHeight;
             
-            // Get container dimensions (using the buttons div as reference for safe area)
-            const buttonsDiv = document.querySelector('.buttons');
-            const containerWidth = container.offsetWidth - 80; // padding on both sides
-            const containerHeight = buttonsDiv.offsetHeight;
+            // Use entire viewport
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
             
-            // Calculate safe bounds (keeping button fully visible)
-            const maxX = containerWidth - btnWidth;
-            const maxY = containerHeight - btnHeight;
+            // Calculate safe bounds (keeping button fully visible with padding)
+            const padding = 20;
+            const maxX = viewportWidth - btnWidth - padding;
+            const maxY = viewportHeight - btnHeight - padding;
             
-            // Ensure minimum spacing from edges
-            const minX = 20;
-            const minY = 0;
-            
-            // Generate random position within safe bounds
-            const randomX = Math.max(minX, Math.min(maxX, Math.random() * containerWidth));
-            const randomY = Math.max(minY, Math.min(maxY, Math.random() * containerHeight));
+            // Generate random position anywhere on screen
+            const randomX = Math.max(padding, Math.random() * maxX);
+            const randomY = Math.max(padding, Math.random() * maxY);
             
             // Move the button
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
+            noBtn.style.transform = 'translate(0, 0)';
             
-            // Make the button smaller each time (for fun)
-            const newSize = Math.max(0.6, 1 - (clickCount * 0.08));
+            // Make the button smaller and faster each time
+            const newSize = Math.max(0.5, 1 - (clickCount * 0.06));
             noBtn.style.transform = `scale(${newSize})`;
             
-            // After several attempts, make it change text
-            if (clickCount > 5) {
-                noBtn.textContent = '😏';
+            // Speed up transition as user tries more
+            const speed = Math.max(0.1, 0.2 - (clickCount * 0.01));
+            noBtn.style.transition = `all ${speed}s ease`;
+            
+            // Change text to tease the user
+            if (clickCount > 3) {
+                noBtn.textContent = '🏃‍♂️';
             }
-            if (clickCount > 10) {
-                noBtn.textContent = 'Nope!';
+            if (clickCount > 7) {
+                noBtn.textContent = '😏 Nope';
+            }
+            if (clickCount > 12) {
+                noBtn.textContent = '😂';
             }
         }
 
@@ -284,17 +289,33 @@
             }
         }
 
-        // Initialize button positions - Yes on left, No on right with spacing
+        // Initialize button positions - both start in the container proportionally
         const yesBtn = document.getElementById('yesBtn');
         yesBtn.style.position = 'absolute';
         yesBtn.style.left = '30%';
         yesBtn.style.top = '50%';
         yesBtn.style.transform = 'translate(-50%, -50%)';
         
-        noBtn.style.position = 'absolute';
-        noBtn.style.left = '70%';
-        noBtn.style.top = '50%';
-        noBtn.style.transform = 'translate(-50%, -50%)';
+        // Position No button proportionally to match Yes button size and spacing
+        // Calculate position relative to container, then convert to viewport coordinates
+        function positionNoButton() {
+            const containerRect = container.getBoundingClientRect();
+            const buttonsArea = document.querySelector('.buttons').getBoundingClientRect();
+            
+            // Position at 70% of container width, centered vertically in buttons area
+            const leftPercent = 0.70;
+            const initialLeft = containerRect.left + (containerRect.width * leftPercent);
+            const initialTop = buttonsArea.top + (buttonsArea.height / 2);
+            
+            noBtn.style.left = initialLeft + 'px';
+            noBtn.style.top = initialTop + 'px';
+            noBtn.style.transform = 'translate(-50%, -50%)';
+        }
+        
+        positionNoButton();
+        
+        // Reposition on resize to maintain proportional positioning
+        window.addEventListener('resize', positionNoButton);
     </script>
 </body>
 </html>
